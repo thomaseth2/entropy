@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Entropy</title>
+    <style>
+        #content {
+            margin-top: 20px;
+            border: 1px solid black;
+            padding: 10px;
+            min-height: 200px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="input" placeholder="Write here..."/>
+    <button onclick="addText()">Submit</button>
+    <div id="content"></div>
+
+    <script>
+        function addText() {
+            var input = document.getElementById("input");
+            var content = document.getElementById("content");
+
+            content.innerHTML += input.value + "\n";
+            input.value = "";
+        }
+    </script>
+</body>
+</html>
