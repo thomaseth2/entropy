@@ -13,18 +13,33 @@
     </style>
 </head>
 <body>
-    <input type="text" id="input" placeholder="Write here..."/>
-    <button onclick="addText()">Submit</button>
+    <input type="text" id="input" placeholder="Write here..." />
+    <button id="submit">Submit</button>
     <div id="content"></div>
-
+    
     <script>
-        function addText() {
-            var input = document.getElementById("input");
-            var content = document.getElementById("content");
+        const submitButton = document.getElementById('submit');
+        const input = document.getElementById('input');
+        const content = document.getElementById('content');
 
-            content.innerHTML += input.value + "\n";
-            input.value = "";
-        }
+        submitButton.addEventListener('click', async () => {
+            await fetch('/api/addText', { 
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: input.value }) 
+            });
+            input.value = '';
+       });
+
+       const initialize = async () => {
+            const response = await fetch('/api/getTexts');
+            const texts = await response.json();
+            content.innerHTML = texts.join('\n');
+       }
+       
+       initialize();
     </script>
 </body>
 </html>
